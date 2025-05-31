@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ligi Piłkarskie</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+    <style>
+        .leagues-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .league {
+            background-color: white;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .league h2 {
+            color: #006341;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #006341;
+            padding-bottom: 0.5rem;
+        }
+        
+        .league-logo {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            float: left;
+            margin-right: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .league-info {
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>Ligi Piłkarskie</h1>
+        </div>
+        <div id="clock" class="clock"></div>
+    </header>
+
+    <nav id="main-nav">
+        <ul>
+            <li><a href="index.html">Strona Główna</a></li>
+            <li><a href="historia.html">Historia</a></li>
+            <li><a href="zasady.html">Zasady</a></li>
+            <li><a href="druzyny.html">Boisko</a></li>
+            <li><a href="ligi.html">Ligi</a></li>
+            <li><a href="turnieje.html">Analiza</a></li>
+            <li><a href="statystyki.html">Statystyki</a></li>
+            <li><a href="galeria.html">Galeria</a></li>
+            <li><a href="kontakt.html">Kontakt</a></li>
+            <li><a href="formularz.html">Formularz</a></li>
+            <li><a href="prezentacja.html">Prezentacja</a></li>
+            <li><a href="gra.html">Gra</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <div class="leagues-container">
+            <div class="league">
+                <img src="zdj/z1.png" alt="Premier League" class="league-logo">
+                <div class="league-info">
+                    <h2>Premier League (Anglia)</h2>
+                    <p>Najbardziej prestiżowa liga piłkarska na świecie, rozgrywana w Anglii. Składa się z 20 drużyn, a sezon trwa od sierpnia do maja.</p>
+                    <p><strong>Najbardziej utytułowane kluby:</strong> Manchester United, Liverpool, Arsenal, Chelsea</p>
+                </div>
+            </div>
+            
+            <div class="league">
+                <img src="zdj/z2.png" alt="La Liga" class="league-logo">
+                <div class="league-info">
+                    <h2>La Liga (Hiszpania)</h2>
+                    <p>Hiszpańska liga piłkarska, znana z technicznego stylu gry. Dominują w niej dwa kluby: FC Barcelona i Real Madrid.</p>
+                    <p><strong>Liczba drużyn:</strong> 20</p>
+                </div>
+            </div>
+            
+            <div class="league">
+                <img src="zdj/z3.jpg" alt="Bundesliga" class="league-logo">
+                <div class="league-info">
+                    <h2>Bundesliga (Niemcy)</h2>
+                    <p>Niemiecka liga piłkarska z najwyższą średnią frekwencją kibiców na świecie. Bayern Monachium dominuje w ostatnich latach.</p>
+                    <p><strong>Ciekawostka:</strong> 50+1 zasada własności klubów</p>
+                </div>
+            </div>
+            
+            <div class="league">
+                <img src="zdj/z4.jpg" alt="Serie A" class="league-logo">
+                <div class="league-info">
+                    <h2>Serie A (Włochy)</h2>
+                    <p>Włoska liga znana z taktycznego podejścia do gry i silnej obrony. W latach 90. uważana za najlepszą ligę świata.</p>
+                    <p><strong>Znane kluby:</strong> Juventus, AC Milan, Inter Mediolan</p>
+                </div>
+            </div>
+            
+            <div class="league">
+                <img src="zdj/z5.jpg" alt="Ekstraklasa" class="league-logo">
+                <div class="league-info">
+                    <h2>Ekstraklasa (Polska)</h2>
+                    <p>Najwyższa klasa rozgrywkowa w Polsce. Składa się z 16 drużyn, a mistrzostwo zdobywa zespół z największą liczbą punktów.</p>
+                    <p><strong>Obecny mistrz:</strong> [Wpisz aktualnego mistrza]</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="visitor-info">
+            <p>Odwiedzin: <span id="visit-counter">0</span></p>
+            <p>Czas spędzony na stronie: <span id="time-spent">0</span> sekund</p>
+        </div>
+    </main>
+
+    <footer>
+        <p>Projekt strony internetowej wykonany w ramach zaliczenia przedmiotu MO: TiSKwE na kierunku Energetyka.</p>
+        <p>Autor: Michał Ścipniak</p>
+        <p id="current-date"></p>
+    </footer>
+</body>
+</html>

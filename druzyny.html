@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interaktywne Boisko Piłkarskie</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+    <style>
+        .map-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 2rem 0;
+        }
+        
+        #soccer-field {
+            border: 2px solid #006341;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            margin-bottom: 1rem;
+        }
+        
+        .area-info {
+            max-width: 800px;
+            margin: 2rem auto;
+            background-color: white;
+            padding: 2rem;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .canvas-btn {
+            background-color: #006341;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+            margin: 0 0.5rem;
+        }
+        
+        .canvas-btn:hover {
+            background-color: #009950;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>Interaktywne Boisko Piłkarskie</h1>
+        </div>
+        <div id="clock" class="clock"></div>
+    </header>
+
+    <nav id="main-nav">
+        <ul>
+            <li><a href="index.html">Strona Główna</a></li>
+            <li><a href="historia.html">Historia</a></li>
+            <li><a href="zasady.html">Zasady</a></li>
+            <li><a href="druzyny.html">Boisko</a></li>
+            <li><a href="ligi.html">Ligi</a></li>
+            <li><a href="turnieje.html">Analiza</a></li>
+            <li><a href="statystyki.html">Statystyki</a></li>
+            <li><a href="galeria.html">Galeria</a></li>
+            <li><a href="kontakt.html">Kontakt</a></li>
+            <li><a href="formularz.html">Formularz</a></li>
+            <li><a href="prezentacja.html">Prezentacja</a></li>
+            <li><a href="gra.html">Gra</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <div class="map-container">
+            <h2>Kliknij na obszar boiska, aby zobaczyć informacje</h2>
+            <canvas id="soccer-field" width="800" height="500"></canvas>
+        </div>
+        
+        <div id="penalty-area-info" class="area-info hidden">
+            <h3>Pole karne</h3>
+            <p>Obszar o wymiarach 16.5m × 40.3m przed każdą bramką:</p>
+            <ul>
+                <li>Bramkarz może łapać piłkę rękami</li>
+                <li>Faule na napastniku karane są rzutem karnym</li>
+                <li>Rzut wolny pośredni dla obrońców staje się bezpośredni</li>
+            </ul>
+            <button onclick="hideInfo('penalty-area-info')" class="canvas-btn">Zamknij</button>
+        </div>
+        
+        <div id="center-circle-info" class="area-info hidden">
+            <h3>Środkowe koło</h3>
+            <p>Okrąg o promieniu 9.15m na środku boiska:</p>
+            <ul>
+                <li>Miejsce rozpoczęcia meczu i wznowienia gry po golu</li>
+                <li>Zawodnicy drużyny przeciwnej muszą stać poza kołem przy wznowieniu</li>
+                <li>Symboliczne miejsce fair play na początku spotkania</li>
+            </ul>
+            <button onclick="hideInfo('center-circle-info')" class="canvas-btn">Zamknij</button>
+        </div>
+        
+        <div id="corner-area-info" class="area-info hidden">
+            <h3>Rogi boiska</h3>
+            <p>Obszar wykonywania rzutów rożnych:</p>
+            <ul>
+                <li>Piłka musi być ustawiona w łuku rożnym</li>
+                <li>Zawodnicy mogą ustawiać się w formacji</li>
+                <li>Popularne miejsce do wykonywania zaplanowanych stałych fragmentów gry</li>
+            </ul>
+            <button onclick="hideInfo('corner-area-info')" class="canvas-btn">Zamknij</button>
+        </div>
+        
+        <div id="technical-area-info" class="area-info hidden">
+            <h3>Strefy techniczne</h3>
+            <p>Obszar dla trenerów i rezerwowych:</p>
+            <ul>
+                <li>Miejsce dla trenerów i zawodników rezerwowych</li>
+                <li>Trenerzy muszą pozostać w tej strefie podczas meczu</li>
+                <li>Obszar o długości 10m od ławki rezerwowych</li>
+            </ul>
+            <button onclick="hideInfo('technical-area-info')" class="canvas-btn">Zamknij</button>
+        </div>
+        
+        <div id="halfway-line-info" class="area-info hidden">
+            <h3>Linia środkowa</h3>
+            <p>Linia dzieląca boisko na dwie połowy:</p>
+            <ul>
+                <li>Wyznacza strefę spalonego</li>
+                <li>Zawodnicy muszą znajdować się na swojej połowie przy rozpoczęciu gry</li>
+                <li>Symbolicznie dzieli boisko na strefę obrony i ataku</li>
+            </ul>
+            <button onclick="hideInfo('halfway-line-info')" class="canvas-btn">Zamknij</button>
+        </div>
+
+        <div class="visitor-info">
+            <p>Odwiedzin: <span id="visit-counter">0</span></p>
+            <p>Czas spędzony na stronie: <span id="time-spent">0</span> sekund</p>
+        </div>
+    </main>
+
+    <footer>
+        <p>Projekt strony internetowej wykonany w ramach zaliczenia przedmiotu MO: TiSKwE na kierunku Energetyka.</p>
+        <p>Autor: Michał Ścipniak</p>
+        <p id="current-date"></p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const canvas = document.getElementById('soccer-field');
+            const ctx = canvas.getContext('2d');
+            
+            
+            const areas = [
+                
+                {
+                    name: 'penalty-area-left',
+                    points: [{x:50,y:150}, {x:150,y:150}, {x:150,y:350}, {x:50,y:350}],
+                    color: 'rgba(255, 99, 71, 0.3)',
+                    text: 'Pole karne',
+                    textPos: {x: 100, y: 200},
+                    infoId: 'penalty-area-info'
+                },
+                
+                {
+                    name: 'penalty-area-right',
+                    points: [{x:650,y:150}, {x:750,y:150}, {x:750,y:350}, {x:650,y:350}],
+                    color: 'rgba(255, 99, 71, 0.3)',
+                    text: 'Pole karne',
+                    textPos: {x: 700, y: 200},
+                    infoId: 'penalty-area-info'
+                },
+                
+                {
+                    name: 'center-circle',
+                    type: 'circle',
+                    x: 400,
+                    y: 250,
+                    radius: 70,
+                    color: 'rgba(255, 206, 86, 0.3)',
+                    text: 'Koło środkowe',
+                    textPos: {x: 400, y: 250},
+                    infoId: 'center-circle-info'
+                },
+                
+                {
+                    name: 'corner-left',
+                    type: 'circle',
+                    x: 50,
+                    y: 50,
+                    radius: 20,
+                    color: 'rgba(153, 102, 255, 0.3)',
+                    text: 'Róg',
+                    textPos: {x: 80, y: 50},
+                    infoId: 'corner-area-info'
+                },
+                
+                {
+                    name: 'technical-area',
+                    points: [{x:50,y:50}, {x:150,y:50}, {x:150,y:100}, {x:50,y:100}],
+                    color: 'rgba(199, 199, 199, 0.3)',
+                    text: 'Strefa techniczna',
+                    textPos: {x: 100, y: 75},
+                    infoId: 'technical-area-info'
+                }
+            ];
+            
+            
+            function drawField() {
+                
+                ctx.fillStyle = '#4CAF50';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                
+                ctx.strokeStyle = 'white';
+                ctx.lineWidth = 2;
+                
+                
+                ctx.strokeRect(50, 50, canvas.width - 100, canvas.height - 100);
+                
+                
+                ctx.beginPath();
+                ctx.moveTo(canvas.width / 2, 50);
+                ctx.lineTo(canvas.width / 2, canvas.height - 50);
+                ctx.stroke();
+                
+                
+                ctx.beginPath();
+                ctx.arc(canvas.width / 2, canvas.height / 2, 70, 0, Math.PI * 2);
+                ctx.stroke();
+                
+                
+                ctx.beginPath();
+                ctx.arc(canvas.width / 2, canvas.height / 2, 5, 0, Math.PI * 2);
+                ctx.fillStyle = 'white';
+                ctx.fill();
+                
+                
+                ctx.strokeRect(50, 150, 100, 200);
+                ctx.strokeRect(50, 200, 50, 100);
+                
+                
+                ctx.beginPath();
+                ctx.arc(150, canvas.height / 2, 5, 0, Math.PI * 2);
+                ctx.fill();
+                
+                
+                ctx.strokeRect(canvas.width - 150, 150, 100, 200);
+                ctx.strokeRect(canvas.width - 100, 200, 50, 100);
+                
+                
+                ctx.beginPath();
+                ctx.arc(canvas.width - 150, canvas.height / 2, 5, 0, Math.PI * 2);
+                ctx.fill();
+                
+                
+                ctx.beginPath();
+                ctx.arc(50, 50, 20, 0, Math.PI / 2);
+                ctx.stroke();
+                
+                ctx.beginPath();
+                ctx.arc(50, canvas.height - 50, 20, -Math.PI / 2, 0);
+                ctx.stroke();
+                
+                ctx.beginPath();
+                ctx.arc(canvas.width - 50, 50, 20, Math.PI / 2, Math.PI);
+                ctx.stroke();
+                
+                ctx.beginPath();
+                ctx.arc(canvas.width - 50, canvas.height - 50, 20, Math.PI, Math.PI * 3/2);
+                ctx.stroke();
+                
+                
+                ctx.fillStyle = 'white';
+                ctx.fillRect(45, canvas.height / 2 - 30, 5, 60);
+                ctx.fillRect(canvas.width - 50, canvas.height / 2 - 30, 5, 60);
+                
+                
+                ctx.strokeRect(50, 50, 100, 50);
+                ctx.strokeRect(650, 50, 100, 50);
+                
+                
+                areas.forEach(area => {
+                    if (area.type === 'circle') {
+                        ctx.fillStyle = area.color;
+                        ctx.beginPath();
+                        ctx.arc(area.x, area.y, area.radius, 0, Math.PI * 2);
+                        ctx.fill();
+                    } else {
+                        ctx.fillStyle = area.color;
+                        ctx.beginPath();
+                        ctx.moveTo(area.points[0].x, area.points[0].y);
+                        for (let i = 1; i < area.points.length; i++) {
+                            ctx.lineTo(area.points[i].x, area.points[i].y);
+                        }
+                        if (area.points.length > 2) ctx.closePath();
+                        ctx.fill();
+                    }
+                });
+                
+                
+                areas.forEach(area => {
+                    ctx.fillStyle = '#000';
+                    ctx.font = 'bold 12px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText(area.text, area.textPos.x, area.textPos.y);
+                });
+            }
+            
+            
+            function isPointInPoly(poly, pt) {
+                let inside = false;
+                for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
+                    const xi = poly[i].x, yi = poly[i].y;
+                    const xj = poly[j].x, yj = poly[j].y;
+                    
+                    const intersect = ((yi > pt.y) !== (yj > pt.y))
+                        && (pt.x < (xj - xi) * (pt.y - yi) / (yj - yi) + xi);
+                    if (intersect) inside = !inside;
+                }
+                return inside;
+            }
+            
+            
+            function isPointInCircle(circle, pt) {
+                return Math.sqrt((pt.x - circle.x) ** 2 + (pt.y - circle.y) ** 2) <= circle.radius;
+            }
+            
+            
+            canvas.addEventListener('click', function(e) {
+                const rect = canvas.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                
+                for (const area of areas) {
+                    let isInside = false;
+                    
+                    if (area.type === 'circle') {
+                        isInside = isPointInCircle({x: area.x, y: area.y, radius: area.radius}, {x, y});
+                    } else {
+                        isInside = isPointInPoly(area.points, {x, y});
+                    }
+                    
+                    if (isInside) {
+                        showInfo(area.infoId);
+                        return;
+                    }
+                }
+            });
+            
+            
+            function showInfo(id) {
+                document.querySelectorAll('.area-info').forEach(el => {
+                    el.classList.add('hidden');
+                });
+                document.getElementById(id).classList.remove('hidden');
+            }
+            
+            
+            drawField();
+        });
+        
+        
+        function hideInfo(id) {
+            document.getElementById(id).classList.add('hidden');
+        }
+    </script>
+</body>
+</html>

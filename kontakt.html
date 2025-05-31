@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kontakt</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+    <style>
+        .contact-container {
+            max-width: 800px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+        
+        .contact-info {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .contact-info h2 {
+            color: #006341;
+            margin-bottom: 1.5rem;
+        }
+        
+        .contact-details {
+            margin-top: 1.5rem;
+        }
+        
+        .contact-details p {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .contact-details i {
+            margin-right: 0.5rem;
+            color: #006341;
+        }
+        
+        .map-container {
+            height: 100%;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+            overflow: hidden;
+            display: flex;
+            align-items: stretch;
+        }
+        
+        .map-container img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            min-height: 400px;
+        }
+        
+        @media (max-width: 768px) {
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .map-container img {
+                min-height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>Kontakt</h1>
+        </div>
+        <div id="clock" class="clock"></div>
+    </header>
+
+    <nav id="main-nav">
+        <ul>
+            <li><a href="index.html">Strona Główna</a></li>
+            <li><a href="historia.html">Historia</a></li>
+            <li><a href="zasady.html">Zasady</a></li>
+            <li><a href="druzyny.html">Boisko</a></li>
+            <li><a href="ligi.html">Ligi</a></li>
+            <li><a href="turnieje.html">Analiza</a></li>
+            <li><a href="statystyki.html">Statystyki</a></li>
+            <li><a href="galeria.html">Galeria</a></li>
+            <li><a href="kontakt.html">Kontakt</a></li>
+            <li><a href="formularz.html">Formularz</a></li>
+            <li><a href="prezentacja.html">Prezentacja</a></li>
+            <li><a href="gra.html">Gra</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <div class="contact-container">
+            <div class="contact-info">
+                <h2>Skontaktuj się z nami</h2>
+                <p>Masz pytania dotyczące piłki nożnej? Chcesz podzielić się swoją opinią? Napisz do nas!</p>
+                
+                <div class="contact-details">
+                    <p><i>📧</i> michal.scipniak@student.put.poznan.pl</p>
+                    <p><i>📞</i> +48 123456789</p>
+                    <p><i>🏠</i> ul. Piotrowo, Poznań</p>
+                    <p><i>⏰</i> Pon-Pt: 9:00-17:00</p>
+                </div>
+                
+                <p>Projekt strony internetowej wykonany w ramach zaliczenia przedmiotu MO: TiSKwE na kierunku Energetyka.</p>
+                <p>Autor: Michał Ścipniak</p>
+            </div>
+            
+            <div class="map-container">
+                <img src="zdj/mapa.png" alt="Mapa lokalizacji ul. Piłkarska 10 w Warszawie">
+            </div>
+        </div>
+
+        <div class="visitor-info">
+            <p>Odwiedzin: <span id="visit-counter">0</span></p>
+            <p>Czas spędzony na stronie: <span id="time-spent">0</span> sekund</p>
+        </div>
+    </main>
+
+    <footer>
+        <p>Projekt strony internetowej wykonany w ramach zaliczenia przedmiotu MO: TiSKwE na kierunku Energetyka.</p>
+        <p>Autor: Michał Ścipniak</p>
+        <p id="current-date"></p>
+    </footer>
+</body>
+</html>

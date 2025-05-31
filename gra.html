@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Piłkarski Challenge</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="gra.js" defer></script>
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>Piłkarski Challenge</h1>
+            <p>Strzel gole i zostań królem strzelców!</p>
+        </div>
+        <div id="clock" class="clock"></div>
+    </header>
+
+    <nav id="main-nav">
+        <ul>
+            <li><a href="index.html">Strona Główna</a></li>
+            <li><a href="historia.html">Historia</a></li>
+            <li><a href="zasady.html">Zasady</a></li>
+            <li><a href="druzyny.html">Boisko</a></li>
+            <li><a href="ligi.html">Ligi</a></li>
+            <li><a href="turnieje.html">Analiza</a></li>
+            <li><a href="statystyki.html">Statystyki</a></li>
+            <li><a href="galeria.html">Galeria</a></li>
+            <li><a href="kontakt.html">Kontakt</a></li>
+            <li><a href="formularz.html">Formularz</a></li>
+            <li><a href="prezentacja.html">Prezentacja</a></li>
+            <li><a href="gra.html">Gra</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <div class="game-container">
+            <div class="game-info">
+                <div class="game-score">Wynik: <span id="score">0</span></div>
+                <div class="game-score">Czas: <span id="time">30</span>s</div>
+                <div class="game-score">Rekord: <span id="highscore">0</span></div>
+            </div>
+            
+            <div class="instructions">
+                <h3>Jak grać?</h3>
+                <p>1. Kliknij START aby rozpocząć grę</p>
+                <p>2. Klikaj w dowolne miejsce na boisku, aby kopnąć piłkę w tym kierunku</p>
+                <p>3. Strzelaj gole do bramki przeciwnika (po prawej stronie)</p>
+                <p>4. Unikaj obrońcy w niebieskim stroju</p>
+                <p>5. Zdobywaj punkty w ciągu 30 sekund!</p>
+            </div>
+            
+            <canvas id="game-canvas" width="700" height="400"></canvas>
+            
+            <div class="game-controls">
+                <button id="start-btn" class="game-btn">START</button>
+                <button id="reset-btn" class="game-btn">RESET</button>
+                <button id="pause-btn" class="game-btn">PAUZA</button>
+            </div>
+        </div>
+
+        <div class="visitor-info">
+            <p>Odwiedzin: <span id="visit-counter">0</span></p>
+            <p>Czas spędzony na stronie: <span id="time-spent">0</span> sekund</p>
+        </div>
+    </main>
+
+    <footer>
+        <p>Projekt strony internetowej wykonany w ramach zaliczenia przedmiotu MO: TiSKwE na kierunku Energetyka.</p>
+        <p>Autor: Michał Ścipniak</p>
+        <p id="current-date"></p>
+    </footer>
+</body>
+</html>

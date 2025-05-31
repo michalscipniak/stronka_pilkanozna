@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galeria Piłkarska</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+    <style>
+        .gallery-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        .gallery-main {
+            position: relative;
+            margin-bottom: 1rem;
+        }
+
+        .gallery-image {
+            width: 100%;
+            max-height: 600px;
+            aspect-ratio: 16/9;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-image:hover {
+            transform: scale(1.01);
+        }
+
+        .gallery-controls {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .gallery-btn {
+            background-color: #006341;
+            color: white;
+            border: none;
+            padding: 0.5rem 1.2rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+
+        .gallery-btn:hover {
+            background-color: #009950;
+        }
+
+        .gallery-thumbnails {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 1rem;
+        }
+
+        .thumbnail {
+            width: 100%;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 6px;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease;
+        }
+
+        .thumbnail:hover {
+            transform: scale(1.05);
+        }
+
+        .active-thumbnail {
+            border: 4px solid #006341;
+        }
+
+        .image-info {
+            text-align: center;
+            margin: 1rem 0;
+            font-style: italic;
+            color: #444;
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 600px) {
+            .gallery-btn {
+                font-size: 0.9rem;
+                padding: 0.4rem 1rem;
+            }
+
+            .image-info {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>Galeria Piłkarska</h1>
+        </div>
+        <div id="clock" class="clock"></div>
+    </header>
+
+    <nav id="main-nav">
+        <ul>
+            <li><a href="index.html">Strona Główna</a></li>
+            <li><a href="historia.html">Historia</a></li>
+            <li><a href="zasady.html">Zasady</a></li>
+            <li><a href="druzyny.html">Boisko</a></li>
+            <li><a href="ligi.html">Ligi</a></li>
+            <li><a href="turnieje.html">Analiza</a></li>
+            <li><a href="statystyki.html">Statystyki</a></li>
+            <li><a href="galeria.html" class="active">Galeria</a></li>
+            <li><a href="kontakt.html">Kontakt</a></li>
+            <li><a href="formularz.html">Formularz</a></li>
+            <li><a href="prezentacja.html">Prezentacja</a></li>
+            <li><a href="gra.html">Gra</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <div class="gallery-container">
+            <div class="gallery-main">
+                <img id="main-image" class="gallery-image" src="zdj/gallery1.jpg" alt="Reprezentacja Polski">
+                <p id="image-info" class="image-info">Reprezentacja Polski</p>
+            </div>
+
+            <div class="gallery-controls">
+                <button id="first-btn" class="gallery-btn">Pierwszy</button>
+                <button id="prev-btn" class="gallery-btn">Poprzedni</button>
+                <button id="next-btn" class="gallery-btn">Następny</button>
+                <button id="last-btn" class="gallery-btn">Ostatni</button>
+            </div>
+
+            <div class="gallery-thumbnails" id="thumbnails">
+                
+            </div>
+        </div>
+
+        <div class="visitor-info">
+            <p>Odwiedzin: <span id="visit-counter">0</span></p>
+            <p>Czas spędzony na stronie: <span id="time-spent">0</span> sekund</p>
+        </div>
+    </main>
+
+    <footer>
+        <p>Projekt strony internetowej wykonany w ramach zaliczenia przedmiotu MO: TiSKwE na kierunku Energetyka.</p>
+        <p>Autor: Michał Ścipniak</p>
+        <p id="current-date"></p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const galleryImages = [
+                {
+                    src: "zdj/gallery1.jpg",
+                    alt: "Reprezentacja narodowa",
+                    description: "Reprezentacja Polski"
+                },
+                {
+                    src: "zdj/gallery2.jpg",
+                    alt: "Zwycięzcy Euro 2024",
+                    description: "Zwycięzcy Euro 2024 - Hiszpania"
+                },
+                {
+                    src: "zdj/gallery3.jpg",
+                    alt: "Argentyna",
+                    description: "Zwycięzcy mundialu 2022 - Argentyna"
+                },
+                {
+                    src: "zdj/gallery4.jpg",
+                    alt: "Real",
+                    description: "Zwycięzcy Ligi Mistrzów 2024 - Real Madryt"
+                },
+                {
+                    src: "zdj/gallery5.jpg",
+                    alt: "Lech",
+                    description: "Zwycięzcy Ekstraklasy 2025 - Lech Poznań"
+                }
+            ];
+
+            const mainImage = document.getElementById('main-image');
+            const imageInfo = document.getElementById('image-info');
+            const thumbnailsContainer = document.getElementById('thumbnails');
+            const firstBtn = document.getElementById('first-btn');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const lastBtn = document.getElementById('last-btn');
+
+            let currentIndex = 0;
+
+            
+            galleryImages.forEach((image, index) => {
+                const thumbnail = document.createElement('img');
+                thumbnail.src = image.src;
+                thumbnail.alt = image.alt;
+                thumbnail.classList.add('thumbnail');
+                if (index === 0) thumbnail.classList.add('active-thumbnail');
+
+                thumbnail.addEventListener('click', () => {
+                    updateGallery(index);
+                });
+
+                thumbnailsContainer.appendChild(thumbnail);
+            });
+
+            function updateGallery(index) {
+                currentIndex = index;
+                const image = galleryImages[currentIndex];
+                mainImage.src = image.src;
+                mainImage.alt = image.alt;
+                imageInfo.textContent = image.description;
+
+                document.querySelectorAll('.thumbnail').forEach((thumb, i) => {
+                    thumb.classList.toggle('active-thumbnail', i === currentIndex);
+                });
+            }
+
+            
+            firstBtn.addEventListener('click', () => updateGallery(0));
+            prevBtn.addEventListener('click', () => updateGallery((currentIndex - 1 + galleryImages.length) % galleryImages.length));
+            nextBtn.addEventListener('click', () => updateGallery((currentIndex + 1) % galleryImages.length));
+            lastBtn.addEventListener('click', () => updateGallery(galleryImages.length - 1));
+
+            
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowLeft') {
+                    updateGallery((currentIndex - 1 + galleryImages.length) % galleryImages.length);
+                } else if (e.key === 'ArrowRight') {
+                    updateGallery((currentIndex + 1) % galleryImages.length);
+                } else if (e.key === 'Home') {
+                    updateGallery(0);
+                } else if (e.key === 'End') {
+                    updateGallery(galleryImages.length - 1);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

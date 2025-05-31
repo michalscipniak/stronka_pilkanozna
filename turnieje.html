@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Statystyk Piłkarskich</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+    <style>
+        .converter-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 2rem;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .converter-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        
+        input {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        button {
+            background-color: #006341;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+            grid-column: span 2;
+        }
+        
+        button:hover {
+            background-color: #009950;
+        }
+        
+        .result {
+            margin-top: 2rem;
+            padding: 1rem;
+            background-color: #f5f5f5;
+            border-radius: 4px;
+        }
+        
+        .result-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .result-item {
+            background-color: white;
+            padding: 1rem;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .result-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #006341;
+        }
+        
+        .chart-container {
+            margin-top: 2rem;
+            height: 400px;
+        }
+        
+        @media (max-width: 600px) {
+            .converter-form, .result-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>Kalkulator Statystyk Piłkarskich</h1>
+        </div>
+        <div id="clock" class="clock"></div>
+    </header>
+
+    <nav id="main-nav">
+        <ul>
+            <li><a href="index.html">Strona Główna</a></li>
+            <li><a href="historia.html">Historia</a></li>
+            <li><a href="zasady.html">Zasady</a></li>
+            <li><a href="druzyny.html">Boisko</a></li>
+            <li><a href="ligi.html">Ligi</a></li>
+            <li><a href="turnieje.html">Analiza</a></li>
+            <li><a href="statystyki.html">Statystyki</a></li>
+            <li><a href="galeria.html">Galeria</a></li>
+            <li><a href="kontakt.html">Kontakt</a></li>
+            <li><a href="formularz.html">Formularz</a></li>
+            <li><a href="prezentacja.html">Prezentacja</a></li>
+            <li><a href="gra.html">Gra</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <div class="converter-container">
+            <h2>Analiza podstawowych statystyk drużyny</h2>
+            <p>Wprowadź dane swojej drużyny, aby obliczyć kluczowe wskaźniki.</p>
+            
+            <form id="stats-calculator" class="converter-form">
+                <div class="form-group">
+                    <label for="team-name">Nazwa drużyny:</label>
+                    <input type="text" id="team-name" placeholder="Wpisz nazwę drużyny" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="matches-played">Rozegrane mecze:</label>
+                    <input type="number" id="matches-played" min="1" max="50" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="goals-scored">Gole strzelone:</label>
+                    <input type="number" id="goals-scored" min="0" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="goals-conceded">Gole stracone:</label>
+                    <input type="number" id="goals-conceded" min="0" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="wins">Wygrane:</label>
+                    <input type="number" id="wins" min="0" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="draws">Remisy:</label>
+                    <input type="number" id="draws" min="0" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="losses">Przegrane:</label>
+                    <input type="number" id="losses" min="0" required>
+                </div>
+                
+                <button type="button" id="calculate-btn">Oblicz statystyki</button>
+            </form>
+            
+            <div id="result" class="result" style="display: none;">
+                <h3>Statystyki drużyny: <span id="result-team-name"></span></h3>
+                
+                <div class="result-grid">
+                    <div class="result-item">
+                        <div>Średnia goli strzelonych</div>
+                        <div class="result-value" id="avg-goals-scored"></div>
+                        <div>na mecz</div>
+                    </div>
+                    
+                    <div class="result-item">
+                        <div>Średnia goli straconych</div>
+                        <div class="result-value" id="avg-goals-conceded"></div>
+                        <div>na mecz</div>
+                    </div>
+                    
+                    <div class="result-item">
+                        <div>Bilans bramkowy</div>
+                        <div class="result-value" id="goal-difference"></div>
+                        <div>różnica</div>
+                    </div>
+                    
+                    <div class="result-item">
+                        <div>Procent wygranych</div>
+                        <div class="result-value" id="win-percentage"></div>
+                        <div>% meczów</div>
+                    </div>
+                    
+                    <div class="result-item">
+                        <div>Procent remisów</div>
+                        <div class="result-value" id="draw-percentage"></div>
+                        <div>% meczów</div>
+                    </div>
+                    
+                    <div class="result-item">
+                        <div>Procent porażek</div>
+                        <div class="result-value" id="loss-percentage"></div>
+                        <div>% meczów</div>
+                    </div>
+                </div>
+                
+                <div id="chart-container" class="chart-container">
+                    <canvas id="stats-chart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="visitor-info">
+            <p>Odwiedzin: <span id="visit-counter">0</span></p>
+            <p>Czas spędzony na stronie: <span id="time-spent">0</span> sekund</p>
+        </div>
+    </main>
+
+    <footer>
+        <p>Projekt strony internetowej wykonany w ramach zaliczenia przedmiotu MO: TiSKwE na kierunku Energetyka.</p>
+        <p>Autor: Michał Ścipniak</p>
+        <p id="current-date"></p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const calculateBtn = document.getElementById('calculate-btn');
+            const resultDiv = document.getElementById('result');
+            
+            calculateBtn.addEventListener('click', function() {
+                
+                const teamName = document.getElementById('team-name').value;
+                const matchesPlayed = parseInt(document.getElementById('matches-played').value);
+                const goalsScored = parseInt(document.getElementById('goals-scored').value);
+                const goalsConceded = parseInt(document.getElementById('goals-conceded').value);
+                const wins = parseInt(document.getElementById('wins').value);
+                const draws = parseInt(document.getElementById('draws').value);
+                const losses = parseInt(document.getElementById('losses').value);
+                
+                
+                const avgGoalsScored = (goalsScored / matchesPlayed).toFixed(2);
+                const avgGoalsConceded = (goalsConceded / matchesPlayed).toFixed(2);
+                const goalDifference = goalsScored - goalsConceded;
+                const winPercentage = ((wins / matchesPlayed) * 100).toFixed(1);
+                const drawPercentage = ((draws / matchesPlayed) * 100).toFixed(1);
+                const lossPercentage = ((losses / matchesPlayed) * 100).toFixed(1);
+                
+                
+                if (wins + draws + losses !== matchesPlayed) {
+                    alert("Suma wygranych, remisów i przegranych musi równać się liczbie rozegranych meczów!");
+                    return;
+                }
+                
+                
+                document.getElementById('result-team-name').textContent = teamName;
+                document.getElementById('avg-goals-scored').textContent = avgGoalsScored;
+                document.getElementById('avg-goals-conceded').textContent = avgGoalsConceded;
+                document.getElementById('goal-difference').textContent = goalDifference;
+                document.getElementById('win-percentage').textContent = winPercentage + '%';
+                document.getElementById('draw-percentage').textContent = drawPercentage + '%';
+                document.getElementById('loss-percentage').textContent = lossPercentage + '%';
+                
+                resultDiv.style.display = 'block';
+                
+                
+                drawChart(
+                    
+                    winPercentage,
+                    drawPercentage,
+                    lossPercentage,
+                    teamName
+                );
+            });
+            
+            function drawChart(goalsScored, goalsConceded, winPct, drawPct, lossPct, teamName) {
+                const ctx = document.getElementById('stats-chart').getContext('2d');
+                
+                
+                if (window.statsChart) {
+                    window.statsChart.destroy();
+                }
+                
+                window.statsChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: [
+                           
+                            'Procent wygranych',
+                            'Procent remisów',
+                            'Procent porażek'
+                        ],
+                        datasets: [{
+                            label: teamName,
+                            data: [
+                                parseFloat(goalsScored),
+                                parseFloat(goalsConceded),
+                                parseFloat(winPct),
+                                parseFloat(drawPct),
+                                parseFloat(lossPct)
+                            ],
+                            backgroundColor: [
+                                'rgba(0, 99, 65, 0.7)',
+                                'rgba(220, 53, 69, 0.7)',
+                                'rgba(0, 99, 65, 0.5)',
+                                'rgba(255, 193, 7, 0.7)',
+                                'rgba(220, 53, 69, 0.5)'
+                            ],
+                            borderColor: [
+                                'rgba(0, 99, 65, 1)',
+                                'rgba(220, 53, 69, 1)',
+                                'rgba(0, 99, 65, 1)',
+                                'rgba(255, 193, 7, 1)',
+                                'rgba(220, 53, 69, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: 'Wartość'
+                                }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                position: 'top'
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        let label = context.dataset.label || '';
+                                        if (label) {
+                                            label += ': ';
+                                        }
+                                        
+                                        if (context.dataIndex === 0 || context.dataIndex === 1) {
+                                            return label + context.raw + ' goli';
+                                        } else {
+                                            return label + context.raw + '%';
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

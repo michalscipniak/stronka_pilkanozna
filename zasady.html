@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zasady Piłki Nożnej</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+    <style>
+        .rules-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 2rem;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .rule-item {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .rule-item h3 {
+            color: #006341;
+            margin-bottom: 0.5rem;
+        }
+        
+        .rules-image {
+            width: 100%;
+            margin: 1rem 0;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        .rules-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        @media (max-width: 600px) {
+            .rules-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>Zasady Piłki Nożnej</h1>
+        </div>
+        <div id="clock" class="clock"></div>
+    </header>
+
+    <nav id="main-nav">
+        <ul>
+            <li><a href="index.html">Strona Główna</a></li>
+            <li><a href="historia.html">Historia</a></li>
+            <li><a href="zasady.html">Zasady</a></li>
+            <li><a href="druzyny.html">Boisko</a></li>
+            <li><a href="ligi.html">Ligi</a></li>
+            <li><a href="turnieje.html">Analiza</a></li>
+            <li><a href="statystyki.html">Statystyki</a></li>
+            <li><a href="galeria.html">Galeria</a></li>
+            <li><a href="kontakt.html">Kontakt</a></li>
+            <li><a href="formularz.html">Formularz</a></li>
+            <li><a href="prezentacja.html">Prezentacja</a></li>
+            <li><a href="gra.html">Gra</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <div class="rules-container">
+            <h2>Podstawowe zasady gry</h2>
+            <img src="zdj/pi.jpg" alt="Podstawowe zasady piłki nożnej" class="rules-image">
+            
+            <div class="rules-grid">
+                <div class="rule-item">
+                    <h3>Czas gry</h3>
+                    <p>Standardowy mecz piłkarski trwa 90 minut i dzieli się na dwie połowy po 45 minut każda. Pomiędzy połowami jest 15-minutowa przerwa. Sędzia może doliczyć czas stracony na przerwy w grze (tzw. czas dodany). W przypadku rozstrzygnięcia meczu w systemie pucharowym, może być zarządzona dogrywka (2 × 15 minut) i rzuty karne.</p>
+                </div>
+                
+                <div class="rule-item">
+                    <h3>Drużyna</h3>
+                    <p>Każda drużyna składa się z maksymalnie 11 zawodników (w tym bramkarza) i minimalnie 7 zawodników. W oficjalnych rozgrywkach można dokonać maksymalnie 5 zmian zawodników (w niektórych rozgrywkach 3). Bramkarz jest jedynym zawodnikiem, który może dotykać piłki rękami, ale tylko we własnym polu karnym.</p>
+                </div>
+                
+                <div class="rule-item">
+                    <h3>Bramka</h3>
+                    <p>Bramka jest zdobyta, gdy piłka w całości przekroczy linię bramkową pomiędzy słupkami i pod poprzeczką. Decyzję o przyznaniu golu podejmuje sędzia, który może korzystać z technologii goal-line technology lub VAR (system wideo asystentów sędziów) w rozgrywkach, gdzie są one stosowane.</p>
+                </div>
+                
+                <div class="rule-item">
+                    <h3>Spalony</h3>
+                    <p>Zawodnik jest na pozycji spalonej, jeśli w momencie podania znajduje się bliżej linii bramkowej przeciwnika niż piłka i przedostatni zawodnik drużyny przeciwnej (zwykle ostatni obrońca). Pozycja spalona nie jest karana, jeśli zawodnik znajduje się na własnej połowie lub otrzymuje piłkę bezpośrednio z rzutu od bramki, wrzutu lub rzutu rożnego.</p>
+                </div>
+                
+                <div class="rule-item">
+                    <h3>Rzuty karne</h3>
+                    <p>Rzut karny jest przyznawany za przewinienie w polu karnym. Wykonywany jest z punktu karnego z odległości 11 metrów od bramki. Wszyscy zawodnicy oprócz bramkarza i wykonującego rzut muszą znajdować się poza polem karnym i co najmniej 9,15 m od piłki. Bramkarz może poruszać się po linii bramkowej, ale nie może wyjść przed linię przed kopnięciem piłki.</p>
+                </div>
+                
+                <div class="rule-item">
+                    <h3>Faule i przewinienia</h3>
+                    <p>Sędzia może ukarać zawodnika żółtą kartką za poważne przewinienia lub niesportowe zachowanie, a czerwoną kartką za bardzo poważne przewinienia, agresję lub drugą żółtą kartkę w tym samym meczu. Kopnięcie, podcięcie, uderzenie, przytrzymanie przeciwnika lub dotknięcie piłki ręką (poza bramkarzem we własnym polu karnym) to typowe przewinienia.</p>
+                </div>
+                
+                <div class="rule-item">
+                    <h3>Wrzut z autu</h3>
+                    <p>Gdy piłka opuści boisko przez linię boczną, przyznawany jest wrzut drużynie przeciwnej do tej, której zawodnik ostatnio dotknął piłki. Zawodnik wykonujący wrzut musi stać obiema nogami na ziemi, trzymać piłkę oburącz i wyrzucić ją zza głowy. Nie można zdobyć gola bezpośrednio z wrzutu.</p>
+                </div>
+                
+                <div class="rule-item">
+                    <h3>Rzut rożny</h3>
+                    <p>Gdy piłka opuści boisko przez linię bramkową, ostatnio dotknięta przez zawodnika drużyny broniącej, przyznawany jest rzut rożny. Piłka ustawiana jest w łuku rożnym, a zawodnicy drużyny przeciwnej muszą stać w odległości co najmniej 9,15 m. Z rzutu rożnego można zdobyć bramkę bezpośrednio.</p>
+                </div>
+            </div>
+            
+            <h2>Znaczenie sygnałów sędziowskich</h2>
+            <div class="rule-item">
+                <h3>Gwizdek i gesty sędziego</h3>
+                <p>Sędzia używa gwizdka do sygnalizowania przerwania gry, wznowienia gry lub decyzji o przewinieniu. Typowe gesty to:
+                <ul>
+                    <li>Wskazanie kierunku - wskazuje miejsce przewinienia i drużynę, która ma wznowić grę</li>
+                    <li>Podniesienie ręki - sygnalizuje spalonego</li>
+                    <li>Żółta i czerwona kartka - kary dyscyplinarne</li>
+                    <li>Wskazanie na punkt karny - przyznanie rzutu karnego</li>
+                </ul>
+                </p>
+            </div>
+            
+            <h2>Wymiary boiska i sprzęt</h2>
+            <div class="rule-item">
+                <h3>Standardowe wymiary</h3>
+                <p>Boisko do piłki nożnej powinno być prostokątem o długości 90-120 m i szerokości 45-90 m (dla meczów międzynarodowych 100-110 m × 64-75 m). Bramki mają szerokość 7,32 m i wysokość 2,44 m. Piłka powinna mieć obwód 68-70 cm i ważyć 410-450 g na początku meczu.</p>
+            </div>
+        </div>
+
+        <div class="visitor-info">
+            <p>Odwiedzin: <span id="visit-counter">0</span></p>
+            <p>Czas spędzony na stronie: <span id="time-spent">0</span> sekund</p>
+        </div>
+    </main>
+
+    <footer>
+        <p>Projekt strony internetowej wykonany w ramach zaliczenia przedmiotu MO: TiSKwE na kierunku Energetyka.</p>
+        <p>Autor: Michał Ścipniak</p>
+        <p id="current-date"></p>
+    </footer>
+</body>
+</html>

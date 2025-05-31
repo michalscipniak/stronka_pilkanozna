@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statystyki Piłkarskie 2023/2024</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+    <style>
+        .stats-container {
+            overflow-x: auto;
+            margin: 2rem;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        th, td {
+            border: 1px solid #ddd;
+            padding: 0.75rem;
+            text-align: center;
+        }
+        
+        th {
+            background-color: #006341;
+            color: white;
+            position: sticky;
+            top: 0;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        
+        .highlight {
+            background-color: #ffeb3b;
+            font-weight: bold;
+        }
+        
+        .top-scorer {
+            background-color: #e8f5e9;
+        }
+        
+        .top-assistant {
+            background-color: #e3f2fd;
+        }
+        
+        .section-header {
+            background-color: #006341;
+            color: white;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>Statystyki Piłkarskie 2023/2024</h1>
+        </div>
+        <div id="clock" class="clock"></div>
+    </header>
+
+    <nav id="main-nav">
+        <ul>
+            <li><a href="index.html">Strona Główna</a></li>
+            <li><a href="historia.html">Historia</a></li>
+            <li><a href="zasady.html">Zasady</a></li>
+            <li><a href="druzyny.html">Boisko</a></li>
+            <li><a href="ligi.html">Ligi</a></li>
+            <li><a href="turnieje.html">Analiza</a></li>
+            <li><a href="statystyki.html">Statystyki</a></li>
+            <li><a href="galeria.html">Galeria</a></li>
+            <li><a href="kontakt.html">Kontakt</a></li>
+            <li><a href="formularz.html">Formularz</a></li>
+            <li><a href="prezentacja.html">Prezentacja</a></li>
+            <li><a href="gra.html">Gra</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section class="stats-container">
+            <h2>Statystyki zawodników - Top 5 lig europejskich 2023/2024</h2>
+            <table id="players-table">
+                <thead>
+                    <tr>
+                        <th rowspan="2">Lp.</th>
+                        <th rowspan="2">Zawodnik</th>
+                        <th rowspan="2">Drużyna</th>
+                        <th rowspan="2">Liga</th>
+                        <th colspan="4">Gole</th>
+                        <th colspan="4">Asysty</th>
+                        <th colspan="3">Strzały</th>
+                        <th colspan="2">Kartki</th>
+                        <th rowspan="2">Minuty</th>
+                        <th rowspan="2">Gole/90min</th>
+                    </tr>
+                    <tr>
+                        <th>Ogółem</th>
+                        <th>Z gry</th>
+                        <th>Karne</th>
+                        <th>Średnia</th>
+                        <th>Ogółem</th>
+                        <th>Kluczowe</th>
+                        <th>Średnia</th>
+                        <th>Skuteczność</th>
+                        <th>Ogółem</th>
+                        <th>Celne</th>
+                        <th>% celnych</th>
+                        <th>Żółte</th>
+                        <th>Czerwone</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                </tbody>
+                <tfoot>
+                    <tr class="section-header">
+                        <td colspan="18">Statystyki drużynowe</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">Drużyna</td>
+                        <td>Liga</td>
+                        <td colspan="3">Gole</td>
+                        <td colspan="3">Asysty</td>
+                        <td colspan="3">Strzały</td>
+                        <td colspan="2">Kartki</td>
+                        <td>Średnia posiadania</td>
+                        <td>Średnia dokładność podań</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </section>
+
+        <div class="visitor-info">
+            <p>Odwiedzin: <span id="visit-counter">0</span></p>
+            <p>Czas spędzony na stronie: <span id="time-spent">0</span> sekund</p>
+        </div>
+    </main>
+
+    <footer>
+        <p>Projekt strony internetowej wykonany w ramach zaliczenia przedmiotu MO: TiSKwE na kierunku Energetyka.</p>
+        <p>Autor: Michał Ścipniak</p>
+        <p id="current-date"></p>
+    </footer>
+
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const players = [
+                // Premier League
+                { name: "Erling Haaland", team: "Manchester City", league: "Premier League", goals: 27, openPlayGoals: 22, penaltyGoals: 5, assists: 8, keyPasses: 30, shots: 105, shotsOnTarget: 52, yellow: 3, red: 0, minutes: 2850 },
+                { name: "Cole Palmer", team: "Chelsea", league: "Premier League", goals: 22, openPlayGoals: 16, penaltyGoals: 6, assists: 11, keyPasses: 55, shots: 95, shotsOnTarget: 45, yellow: 4, red: 0, minutes: 2900 },
+                { name: "Ollie Watkins", team: "Aston Villa", league: "Premier League", goals: 19, openPlayGoals: 17, penaltyGoals: 2, assists: 13, keyPasses: 60, shots: 110, shotsOnTarget: 48, yellow: 2, red: 0, minutes: 3100 },
+                { name: "Mohamed Salah", team: "Liverpool", league: "Premier League", goals: 18, openPlayGoals: 15, penaltyGoals: 3, assists: 10, keyPasses: 50, shots: 115, shotsOnTarget: 50, yellow: 2, red: 0, minutes: 2700 },
+                { name: "Alexander Isak", team: "Newcastle United", league: "Premier League", goals: 17, openPlayGoals: 15, penaltyGoals: 2, assists: 5, keyPasses: 25, shots: 90, shotsOnTarget: 40, yellow: 3, red: 0, minutes: 2200 },
+                
+                // La Liga
+                { name: "Artem Dovbyk", team: "Girona", league: "La Liga", goals: 21, openPlayGoals: 19, penaltyGoals: 2, assists: 8, keyPasses: 35, shots: 100, shotsOnTarget: 45, yellow: 4, red: 0, minutes: 2800 },
+                { name: "Jude Bellingham", team: "Real Madrid", league: "La Liga", goals: 19, openPlayGoals: 17, penaltyGoals: 2, assists: 6, keyPasses: 40, shots: 85, shotsOnTarget: 35, yellow: 5, red: 0, minutes: 2900 },
+                { name: "Robert Lewandowski", team: "FC Barcelona", league: "La Liga", goals: 18, openPlayGoals: 14, penaltyGoals: 4, assists: 9, keyPasses: 45, shots: 120, shotsOnTarget: 55, yellow: 2, red: 0, minutes: 3000 },
+                { name: "Antoine Griezmann", team: "Atletico Madrid", league: "La Liga", goals: 16, openPlayGoals: 14, penaltyGoals: 2, assists: 7, keyPasses: 65, shots: 95, shotsOnTarget: 40, yellow: 3, red: 0, minutes: 3100 },
+                
+                // Bundesliga
+                { name: "Harry Kane", team: "Bayern Monachium", league: "Bundesliga", goals: 36, openPlayGoals: 30, penaltyGoals: 6, assists: 8, keyPasses: 40, shots: 140, shotsOnTarget: 65, yellow: 2, red: 0, minutes: 3200 },
+                { name: "Serhou Guirassy", team: "Stuttgart", league: "Bundesliga", goals: 28, openPlayGoals: 25, penaltyGoals: 3, assists: 3, keyPasses: 20, shots: 110, shotsOnTarget: 50, yellow: 4, red: 0, minutes: 2500 },
+                { name: "Lois Openda", team: "RB Leipzig", league: "Bundesliga", goals: 24, openPlayGoals: 22, penaltyGoals: 2, assists: 7, keyPasses: 35, shots: 115, shotsOnTarget: 55, yellow: 3, red: 0, minutes: 2900 },
+                
+                // Serie A
+                { name: "Lautaro Martínez", team: "Inter Mediolan", league: "Serie A", goals: 24, openPlayGoals: 21, penaltyGoals: 3, assists: 6, keyPasses: 30, shots: 125, shotsOnTarget: 60, yellow: 4, red: 0, minutes: 3000 },
+                { name: "Dusan Vlahovic", team: "Juventus", league: "Serie A", goals: 16, openPlayGoals: 12, penaltyGoals: 4, assists: 4, keyPasses: 25, shots: 100, shotsOnTarget: 45, yellow: 5, red: 0, minutes: 2600 },
+                
+                // Ligue 1
+                { name: "Kylian Mbappé", team: "Paris Saint-Germain", league: "Ligue 1", goals: 27, openPlayGoals: 22, penaltyGoals: 5, assists: 7, keyPasses: 45, shots: 130, shotsOnTarget: 60, yellow: 3, red: 0, minutes: 2800 },
+                { name: "Jonathan David", team: "Lille", league: "Ligue 1", goals: 19, openPlayGoals: 17, penaltyGoals: 2, assists: 5, keyPasses: 30, shots: 105, shotsOnTarget: 50, yellow: 2, red: 0, minutes: 2900 }
+            ];
+
+            const tableBody = document.querySelector('#players-table tbody');
+            const tableFoot = document.querySelector('#players-table tfoot');
+            
+            
+            players.sort((a, b) => b.goals - a.goals);
+            
+            
+            players.forEach((player, index) => {
+                const row = document.createElement('tr');
+                
+                
+                const goalsAvg = (player.goals / (player.minutes / 90)).toFixed(2);
+                const assistsAvg = (player.assists / (player.minutes / 90)).toFixed(2);
+                const shotsAccuracy = ((player.shotsOnTarget / player.shots) * 100).toFixed(1);
+                const assistsAccuracy = ((player.assists / player.keyPasses) * 100).toFixed(1);
+                const goalsPer90 = ((player.goals / player.minutes) * 90).toFixed(2);
+                
+                
+                const classes = [];
+                if (index === 0) classes.push('top-scorer');
+                if (player.assists === Math.max(...players.map(p => p.assists))) classes.push('top-assistant');
+                
+                
+                row.className = classes.join(' ');
+                row.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${player.name}</td>
+                    <td>${player.team}</td>
+                    <td>${player.league}</td>
+                    <td>${player.goals}</td>
+                    <td>${player.openPlayGoals}</td>
+                    <td>${player.penaltyGoals}</td>
+                    <td>${goalsAvg}</td>
+                    <td>${player.assists}</td>
+                    <td>${player.keyPasses}</td>
+                    <td>${assistsAvg}</td>
+                    <td>${assistsAccuracy}%</td>
+                    <td>${player.shots}</td>
+                    <td>${player.shotsOnTarget}</td>
+                    <td>${shotsAccuracy}%</td>
+                    <td>${player.yellow}</td>
+                    <td>${player.red}</td>
+                    <td>${player.minutes}</td>
+                    <td>${goalsPer90}</td>
+                `;
+                
+                tableBody.appendChild(row);
+            });
+            
+            
+            const teams = [...new Set(players.map(player => player.team))];
+            teams.forEach(team => {
+                const teamPlayers = players.filter(p => p.team === team);
+                const teamGoals = teamPlayers.reduce((sum, p) => sum + p.goals, 0);
+                const teamAssists = teamPlayers.reduce((sum, p) => sum + p.assists, 0);
+                const teamShots = teamPlayers.reduce((sum, p) => sum + p.shots, 0);
+                const teamShotsOnTarget = teamPlayers.reduce((sum, p) => sum + p.shotsOnTarget, 0);
+                const teamYellows = teamPlayers.reduce((sum, p) => sum + p.yellow, 0);
+                const teamReds = teamPlayers.reduce((sum, p) => sum + p.red, 0);
+                const teamLeague = teamPlayers[0].league;
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td colspan="3">${team}</td>
+                    <td>${teamLeague}</td>
+                    <td colspan="3">${teamGoals}</td>
+                    <td colspan="3">${teamAssists}</td>
+                    <td colspan="3">${teamShots} (${teamShotsOnTarget})</td>
+                    <td colspan="2">${teamYellows} / ${teamReds}</td>
+                    <td>${(Math.random() * 20 + 50).toFixed(1)}%</td>
+                    <td>${(Math.random() * 10 + 80).toFixed(1)}%</td>
+                `;
+                
+                tableFoot.appendChild(row);
+            });
+            
+            
+            const rows = document.querySelectorAll('#players-table tbody tr, #players-table tfoot tr:not(.section-header)');
+            rows.forEach(row => {
+                row.addEventListener('mouseenter', () => {
+                    row.classList.add('highlight');
+                });
+                row.addEventListener('mouseleave', () => {
+                    row.classList.remove('highlight');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
